@@ -1,0 +1,74 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f4a261; /* Warm Sand Color */
+  color: #2a2a2a;
+}
+
+h1 {
+  font-size: 2em;
+  margin-top: 20px;
+  color: #264653; /* Dark Blue */
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  grid-template-rows: repeat(3, 120px);
+  gap: 8px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.cell {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5em;
+  font-weight: bold;
+  background-color: #e9c46a; /* Soft Yellow */
+  cursor: pointer;
+  border-radius: 10px;
+  border: 3px solid #264653; /* Dark Blue */
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.cell:hover {
+  background-color: #f4d35e; /* Lighter Yellow */
+  transform: scale(1.05);
+}
+
+.cell[data-value="X"] {
+  color: #264653; /* Dark Blue */
+}
+
+.cell[data-value="O"] {
+  color: #e76f51; /* Warm Red */
+}
+
+.winner {
+  font-size: 1.8em;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #264653; /* Dark Blue */
+}
+
+.reset-btn {
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(45deg, #2a9d8f, #264653);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.reset-btn:hover {
+  background: linear-gradient(45deg, #264653, #2a9d8f);
+  transform: scale(1.1);
+}

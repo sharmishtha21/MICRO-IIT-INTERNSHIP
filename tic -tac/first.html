@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            border: 2px solid #000;
+        }
+        .cell:hover {
+            background-color: #ddd;
+        }
+        .winner {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        .reset-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tic-Tac-Toe</h1>
+    <div class="board" id="board"></div>
+    <div class="winner" id="winner"></div>
+    <button class="reset-btn" onclick="resetGame()">Reset Game</button>
+
+    <script>
+        const board = document.getElementById("board");
+        const winnerText = document.getElementById("winner");
+        let cells = [];
+        let currentPlayer = "X";
+        let gameBoard = ["", "", "", "", "", "", "", "", ""];
+
+        function createBoard() {
+            board.innerHTML = "";
+            gameBoard.forEach((cell, index) => {
+                let cellElement = document.createElement("div");
+                cellElement.classList.add("cell");
+                cellElement.dataset.index = index;
+                cellElement.textContent = cell;
+                cellElement.addEventListener("click", handleCellClick);
+                board.appendChild(cellElement);
+                cells[index] = cellElement;
+            });
+        }
+
+        function handleCellClick(event) {
+            let index = event.target.dataset.index;
+            if (gameBoard[index] !== "" || checkWinner()) return;
+            gameBoard[index] = currentPlayer;
+            event.target.textContent = currentPlayer;
+            if (checkWinner()) {
+                winnerText.textContent = `Player ${currentPlayer} wins!`;
+                return;
+            }
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+        }
+
+        function checkWinner() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+                [0, 4, 8], [2, 4, 6]
+            ];
+            return winPatterns.some(pattern => {
+                const [a, b, c] = pattern;
+                return gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c];
+            });
+        }
+
+        function resetGame() {
+            gameBoard = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "X";
+            winnerText.textContent = "";
+            createBoard();
+        }
+
+        createBoard();
+    </script>
+</body>
+</html>
